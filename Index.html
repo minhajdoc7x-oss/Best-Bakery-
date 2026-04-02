@@ -1,55 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bakery Billing System</title>
+<title>Bakery Billing System</title>
 
-    <style>
-        body {
-            font-family: Arial;
-            background: #f5f5f5;
-            padding: 20px;
-        }
+<style>
+body { font-family: Arial; background:#f5f5f5; padding:20px; }
+h2 { text-align:center; }
 
-        h2 {
-            text-align: center;
-        }
+.container {
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    max-width:500px;
+    margin:auto;
+    box-shadow:0 0 10px #ccc;
+}
 
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 500px;
-            margin: auto;
-            box-shadow: 0 0 10px #ccc;
-        }
+select,input {
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+}
 
-        select, input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-        }
+button {
+    padding:10px;
+    width:100%;
+    border:none;
+    color:white;
+    margin-top:5px;
+    cursor:pointer;
+}
 
-        button {
-            padding: 10px;
-            width: 100%;
-            background: green;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
+.green { background:green; }
+.red { background:red; }
+.blue { background:blue; }
+.purple { background:purple; }
+.black { background:black; }
 
-        button:hover {
-            background: darkgreen;
-        }
+.bill {
+    margin-top:20px;
+    background:#eee;
+    padding:10px;
+    border-radius:5px;
+}
 
-        .bill {
-            margin-top: 20px;
-            background: #eee;
-            padding: 10px;
-            border-radius: 5px;
-        }
-    </style>
+.snacks-box {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:5px;
+}
+
+.snacks-box button {
+    background:orange;
+    color:black;
+}
+</style>
 </head>
 
 <body>
@@ -58,104 +63,72 @@
 
 <div class="container">
 
-    <label>Select Item</label>
+<label>Select Item</label>
 
-    <select id="item">
+<select id="item">
+<optgroup label="Fresh Juice">
+<option value="70">Orange - ₹70</option>
+<option value="60">Musambi - ₹60</option>
+<option value="60">Grapes - ₹60</option>
+<option value="60">Pineapple - ₹60</option>
+<option value="40">Milk Lime - ₹40</option>
+<option value="40">Pineapple Lime - ₹40</option>
+</optgroup>
 
-        <optgroup label="Fresh Juice">
-            <option value="70">Orange - ₹70</option>
-            <option value="60">Musambi - ₹60</option>
-            <option value="60">Grapes - ₹60</option>
-            <option value="60">Pineapple - ₹60</option>
-            <option value="40">Milk Lime - ₹40</option>
-            <option value="40">Pineapple Lime - ₹40</option>
-        </optgroup>
+<optgroup label="Milk Shakes">
+<option value="70">Chikku</option>
+<option value="70">Sharjah</option>
+<option value="80">Mango</option>
+<option value="80">Strawberry</option>
+<option value="90">Avocado</option>
+<option value="90">Shamam</option>
+<option value="90">Tender</option>
+<option value="90">Sitaphal</option>
+<option value="70">Cocktail</option>
+<option value="90">Apple</option>
+</optgroup>
 
-        <optgroup label="Milk Shakes">
-            <option value="70">Chikku - ₹70</option>
-            <option value="70">Sharjah - ₹70</option>
-            <option value="80">Mango - ₹80</option>
-            <option value="80">Strawberry - ₹80</option>
-            <option value="90">Avocado - ₹90</option>
-            <option value="90">Shamam - ₹90</option>
-            <option value="90">Tender - ₹90</option>
-            <option value="90">Sitaphal - ₹90</option>
-            <option value="70">Cocktail - ₹70</option>
-            <option value="90">Apple - ₹90</option>
-        </optgroup>
+<optgroup label="Hot Beverages">
+<option value="12">Tea</option>
+<option value="20">Coffee</option>
+<option value="25">Horlicks</option>
+<option value="25">Boost</option>
+</optgroup>
+</select>
 
-        <optgroup label="Special Shakes">
-            <option value="70">Badam Milk - ₹70</option>
-            <option value="70">Cold Coffee - ₹70</option>
-            <option value="100">Snickers - ₹100</option>
-            <option value="100">KitKat - ₹100</option>
-            <option value="80">Oreo - ₹80</option>
-        </optgroup>
+<label>Quantity</label>
+<input type="number" id="qty" value="1">
 
-        <optgroup label="Dry Fruit Shakes">
-            <option value="80">Dates - ₹80</option>
-            <option value="100">Badam - ₹100</option>
-            <option value="100">Roasted Cashew - ₹100</option>
-            <option value="100">Mixed Dry Fruits - ₹100</option>
-        </optgroup>
+<button class="green" onclick="addItem()">Add to Bill</button>
+<button class="red" onclick="clearBill()">Clear Bill</button>
+<button class="blue" onclick="printBill()">Print Bill</button>
+<button class="purple" onclick="saveBill()">Save Bill</button>
+<button class="green" onclick="viewBills()">View Bills</button>
+<button class="black" onclick="deleteBills()">Delete All Bills</button>
 
-        <optgroup label="Ice Cream Shakes">
-            <option value="80">Vanilla - ₹80</option>
-            <option value="80">Strawberry - ₹80</option>
-            <option value="80">Pista - ₹80</option>
-            <option value="90">Mango - ₹90</option>
-            <option value="90">Chocolate - ₹90</option>
-            <option value="90">Butterscotch - ₹90</option>
-            <option value="90">Spanish Delight - ₹90</option>
-        </optgroup>
+<h3>Snacks</h3>
 
-        <optgroup label="Scoops">
-            <option value="50">Vanilla - ₹50</option>
-            <option value="60">Strawberry - ₹60</option>
-            <option value="60">Pista - ₹60</option>
-            <option value="60">Mango - ₹60</option>
-            <option value="60">Chocolate - ₹60</option>
-            <option value="60">Butterscotch - ₹60</option>
-            <option value="60">Spanish Delight - ₹60</option>
-        </optgroup>
+<div class="snacks-box">
+<button onclick="addDirect('Chicken Puffs',20)">Chicken Puffs ₹20</button>
+<button onclick="addDirect('Egg Puffs',20)">Egg Puffs ₹20</button>
+<button onclick="addDirect('Cutlet',20)">Cutlet ₹20</button>
+<button onclick="addDirect('Rolls',25)">Rolls ₹25</button>
+<button onclick="addDirect('Buns',20)">Buns ₹20</button>
+<button onclick="addDirect('Unniyappam',12)">Unniyappam ₹12</button>
+<button onclick="addDirect('Samosa Veg',12)">Samosa Veg ₹12</button>
+<button onclick="addDirect('Samosa Chicken',15)">Samosa Chicken ₹15</button>
+<button onclick="addDirect('Ullivada',15)">Ullivada ₹15</button>
+<button onclick="addDirect('Burger',25)">Burger ₹25</button>
+<button onclick="addDirect('Cream Bun',20)">Cream Bun ₹20</button>
+<button onclick="addDirect('Butter Bun',20)">Butter Bun ₹20</button>
+<button onclick="addDirect('Sandwich',20)">Sandwich ₹20</button>
+</div>
 
-        <optgroup label="Ice Cream Specials">
-            <option value="70">Fruit Salad - ₹70</option>
-            <option value="130">Gudbud - ₹130</option>
-            <option value="160">Dilkush - ₹160</option>
-            <option value="160">Fancy Falooda - ₹160</option>
-            <option value="180">Royal Falooda - ₹180</option>
-            <option value="200">Tender Falooda - ₹200</option>
-            <option value="180">Choco Buzz - ₹180</option>
-            <option value="200">Best Gudbud - ₹200</option>
-            <option value="200">Brownie Fudge - ₹200</option>
-        </optgroup>
-
-        <optgroup label="Mojitos">
-            <option value="70">Green Apple - ₹70</option>
-            <option value="70">Passion Fruit - ₹70</option>
-            <option value="70">Blue Lagoon - ₹70</option>
-        </optgroup>
-
-        <optgroup label="Hot Beverages">
-            <option value="12">Tea - ₹12</option>
-            <option value="20">Coffee - ₹20</option>
-            <option value="25">Horlicks - ₹25</option>
-            <option value="25">Boost - ₹25</option>
-        </optgroup>
-
-    </select>
-
-    <label>Quantity</label>
-    <input type="number" id="qty" value="1">
-
-    <button onclick="addItem()">Add to Bill</button>
-
-    <div class="bill">
-        <h3>Bill</h3>
-        <p id="items"></p>
-        <h3>Total: ₹<span id="total">0</span></h3>
-    </div>
+<div class="bill">
+<h3>Bill</h3>
+<p id="items"></p>
+<h3>Total: ₹<span id="total">0</span></h3>
+</div>
 
 </div>
 
@@ -163,6 +136,7 @@
 
 let total = 0;
 let billText = "";
+let password = "1234";
 
 function addItem() {
     let item = document.getElementById("item");
@@ -177,6 +151,71 @@ function addItem() {
 
     document.getElementById("items").innerHTML = billText;
     document.getElementById("total").innerText = total;
+}
+
+function addDirect(name, price) {
+    total += price;
+    billText += name + " = ₹" + price + "<br>";
+
+    document.getElementById("items").innerHTML = billText;
+    document.getElementById("total").innerText = total;
+}
+
+function clearBill() {
+    let pass = prompt("Enter password");
+    if(pass !== password) return alert("Wrong ❌");
+
+    total = 0;
+    billText = "";
+    document.getElementById("items").innerHTML = "";
+    document.getElementById("total").innerText = "0";
+}
+
+function printBill() {
+    let content = document.querySelector(".bill").innerHTML;
+    let win = window.open("", "", "width=300,height=600");
+    win.document.write("<h3>Bakery Bill</h3>" + content);
+    win.print();
+}
+
+function saveBill() {
+    let data = { items: billText, total: total };
+    let bills = JSON.parse(localStorage.getItem("bills")) || [];
+    bills.push(data);
+    localStorage.setItem("bills", JSON.stringify(bills));
+    alert("Saved ✅");
+}
+
+function viewBills() {
+    let bills = JSON.parse(localStorage.getItem("bills")) || [];
+    let text = "";
+
+    bills.forEach((b,i)=>{
+        text += `<hr>
+        Bill ${i+1}<br>
+        ${b.items}
+        Total: ₹${b.total}<br>
+        <button onclick="deleteOne(${i})">Delete</button>`;
+    });
+
+    let win = window.open("", "", "width=400,height=600");
+    win.document.write(text);
+}
+
+function deleteOne(index) {
+    let bills = JSON.parse(localStorage.getItem("bills")) || [];
+    bills.splice(index,1);
+    localStorage.setItem("bills", JSON.stringify(bills));
+    alert("Deleted ✅");
+    location.reload();
+}
+
+function deleteBills() {
+    let pass = prompt("Enter password");
+    if(pass !== password) return alert("Wrong ❌");
+
+    localStorage.removeItem("bills");
+    alert("All deleted ✅");
 }
 
 </script>
