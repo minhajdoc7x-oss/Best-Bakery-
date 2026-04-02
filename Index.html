@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bakery Billing System</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: auto;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 10px;
+            width: 100%;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: darkgreen;
+        }
+
+        .bill {
+            margin-top: 20px;
+            background: #eee;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Bakery Billing System</h2>
+
+<div class="container">
+
+    <label>Select Item</label>
+
+    <select id="item">
+
+        <optgroup label="Fresh Juice">
+            <option value="70">Orange - ₹70</option>
+            <option value="60">Musambi - ₹60</option>
+            <option value="60">Grapes - ₹60</option>
+            <option value="60">Pineapple - ₹60</option>
+            <option value="40">Milk Lime - ₹40</option>
+            <option value="40">Pineapple Lime - ₹40</option>
+        </optgroup>
+
+        <optgroup label="Milk Shakes">
+            <option value="70">Chikku - ₹70</option>
+            <option value="70">Sharjah - ₹70</option>
+            <option value="80">Mango - ₹80</option>
+            <option value="80">Strawberry - ₹80</option>
+            <option value="90">Avocado - ₹90</option>
+            <option value="90">Shamam - ₹90</option>
+            <option value="90">Tender - ₹90</option>
+            <option value="90">Sitaphal - ₹90</option>
+            <option value="70">Cocktail - ₹70</option>
+            <option value="90">Apple - ₹90</option>
+        </optgroup>
+
+        <optgroup label="Special Shakes">
+            <option value="70">Badam Milk - ₹70</option>
+            <option value="70">Cold Coffee - ₹70</option>
+            <option value="100">Snickers - ₹100</option>
+            <option value="100">KitKat - ₹100</option>
+            <option value="80">Oreo - ₹80</option>
+        </optgroup>
+
+        <optgroup label="Dry Fruit Shakes">
+            <option value="80">Dates - ₹80</option>
+            <option value="100">Badam - ₹100</option>
+            <option value="100">Roasted Cashew - ₹100</option>
+            <option value="100">Mixed Dry Fruits - ₹100</option>
+        </optgroup>
+
+        <optgroup label="Ice Cream Shakes">
+            <option value="80">Vanilla - ₹80</option>
+            <option value="80">Strawberry - ₹80</option>
+            <option value="80">Pista - ₹80</option>
+            <option value="90">Mango - ₹90</option>
+            <option value="90">Chocolate - ₹90</option>
+            <option value="90">Butterscotch - ₹90</option>
+            <option value="90">Spanish Delight - ₹90</option>
+        </optgroup>
+
+        <optgroup label="Scoops">
+            <option value="50">Vanilla - ₹50</option>
+            <option value="60">Strawberry - ₹60</option>
+            <option value="60">Pista - ₹60</option>
+            <option value="60">Mango - ₹60</option>
+            <option value="60">Chocolate - ₹60</option>
+            <option value="60">Butterscotch - ₹60</option>
+            <option value="60">Spanish Delight - ₹60</option>
+        </optgroup>
+
+        <optgroup label="Ice Cream Specials">
+            <option value="70">Fruit Salad - ₹70</option>
+            <option value="130">Gudbud - ₹130</option>
+            <option value="160">Dilkush - ₹160</option>
+            <option value="160">Fancy Falooda - ₹160</option>
+            <option value="180">Royal Falooda - ₹180</option>
+            <option value="200">Tender Falooda - ₹200</option>
+            <option value="180">Choco Buzz - ₹180</option>
+            <option value="200">Best Gudbud - ₹200</option>
+            <option value="200">Brownie Fudge - ₹200</option>
+        </optgroup>
+
+        <optgroup label="Mojitos">
+            <option value="70">Green Apple - ₹70</option>
+            <option value="70">Passion Fruit - ₹70</option>
+            <option value="70">Blue Lagoon - ₹70</option>
+        </optgroup>
+
+        <optgroup label="Hot Beverages">
+            <option value="12">Tea - ₹12</option>
+            <option value="20">Coffee - ₹20</option>
+            <option value="25">Horlicks - ₹25</option>
+            <option value="25">Boost - ₹25</option>
+        </optgroup>
+
+    </select>
+
+    <label>Quantity</label>
+    <input type="number" id="qty" value="1">
+
+    <button onclick="addItem()">Add to Bill</button>
+
+    <div class="bill">
+        <h3>Bill</h3>
+        <p id="items"></p>
+        <h3>Total: ₹<span id="total">0</span></h3>
+    </div>
+
+</div>
+
+<script>
+
+let total = 0;
+let billText = "";
+
+function addItem() {
+    let item = document.getElementById("item");
+    let price = parseInt(item.value);
+    let name = item.options[item.selectedIndex].text;
+    let qty = parseInt(document.getElementById("qty").value);
+
+    let itemTotal = price * qty;
+    total += itemTotal;
+
+    billText += name + " x " + qty + " = ₹" + itemTotal + "<br>";
+
+    document.getElementById("items").innerHTML = billText;
+    document.getElementById("total").innerText = total;
+}
+
+</script>
+
+</body>
+</html>
