@@ -3,32 +3,47 @@
 <head>
 <title>Bakery Billing System</title>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-body { font-family: Arial; background:#f5f5f5; padding:20px; }
-h2 { text-align:center; }
+body {
+    font-family: Arial;
+    background:#f5f5f5;
+    margin:0;
+    padding:10px;
+}
+
+h2 {
+    text-align:center;
+    font-size:20px;
+}
 
 .container {
     background:white;
-    padding:20px;
+    padding:15px;
     border-radius:10px;
     max-width:500px;
+    width:100%;
     margin:auto;
     box-shadow:0 0 10px #ccc;
 }
 
 select,input {
     width:100%;
-    padding:10px;
+    padding:12px;
     margin:10px 0;
+    font-size:16px;
 }
 
 button {
-    padding:10px;
+    padding:12px;
     width:100%;
     border:none;
     color:white;
-    margin-top:5px;
+    margin-top:6px;
     cursor:pointer;
+    font-size:16px;
+    border-radius:6px;
 }
 
 .green { background:green; }
@@ -42,17 +57,20 @@ button {
     background:#eee;
     padding:10px;
     border-radius:5px;
+    font-size:15px;
 }
 
 .snacks-box {
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:5px;
+    gap:8px;
 }
 
 .snacks-box button {
     background:orange;
     color:black;
+    padding:14px;
+    font-size:15px;
 }
 </style>
 </head>
@@ -147,7 +165,7 @@ function addItem() {
     let itemTotal = price * qty;
     total += itemTotal;
 
-    billText += name + " x " + qty + " = ₹" + itemTotal + "<br>";
+   billText += "• " + name + " x " + qty + " = ₹" + itemTotal + "<br>";
 
     document.getElementById("items").innerHTML = billText;
     document.getElementById("total").innerText = total;
@@ -155,7 +173,7 @@ function addItem() {
 
 function addDirect(name, price) {
     total += price;
-    billText += name + " = ₹" + price + "<br>";
+    billText += "• " + name + " = ₹" + price + "<br>";
 
     document.getElementById("items").innerHTML = billText;
     document.getElementById("total").innerText = total;
@@ -173,8 +191,28 @@ function clearBill() {
 
 function printBill() {
     let content = document.querySelector(".bill").innerHTML;
+
     let win = window.open("", "", "width=300,height=600");
-    win.document.write("<h3>Bakery Bill</h3>" + content);
+
+    win.document.write(`
+        <html>
+        <head>
+        <title>Bill</title>
+        <style>
+            body { font-family: Arial; text-align:center; }
+            hr { border:1px dashed black; }
+        </style>
+        </head>
+        <body>
+            <h2>Bakery</h2>
+            <hr>
+            ${content}
+            <hr>
+            <p>Thank You Visit Again 🙏</p>
+        </body>
+        </html>
+    `);
+
     win.print();
 }
 
